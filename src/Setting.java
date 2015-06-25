@@ -3,8 +3,7 @@
  * Created by Canon on 2015-06-25.
  */
 public class Setting {
-    private static Setting instance = new Setting();
-    private Tool currentTool = Tool.Select;
+    private static Tool currentTool = Tool.Select;
     private static int layer = 0;
 
     private Setting() {
@@ -18,15 +17,11 @@ public class Setting {
 
     }
 
-    public static Setting getInstance() {
-        return instance;
-    }
-
-    public Tool getCurrentTool() {
+    public static Tool getCurrentTool() {
         return currentTool;
     }
 
-    public void setCurrentTool(Tool currentTool) {
-        this.currentTool = currentTool;
+    public static void setCurrentTool(Tool tool) {
+        currentTool = tool;
     }
 }

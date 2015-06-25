@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
  * Created by Canon on 2015-06-24.
  */
 public class PatternMouseAdaptor extends MouseAdapter {
-    private Setting setting = Setting.getInstance();
     private static PatternMouseAdaptor instance = new PatternMouseAdaptor();
     private RectangleComponent currentRect = null;
     private int oldX = 0;
@@ -38,7 +37,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        if(setting.getCurrentTool() != Tool.Select) {
+        if(Setting.getCurrentTool() != Tool.Select) {
 
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
@@ -56,7 +55,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent e) {
         super.mouseDragged(e);
-        if(setting.getCurrentTool() != Tool.Select) {
+        if(Setting.getCurrentTool() != Tool.Select) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Drag Send event");

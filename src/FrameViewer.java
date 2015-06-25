@@ -42,6 +42,8 @@ public class FrameViewer extends JFrame{
         add(rectangleButton);
         rectangleButton.setSize(100, 20);
         rectangleButton.setLocation(20, 60);
+
+
         canvas = new JLayeredPane();
         add(canvas);
         canvas.setSize(300, 400);
@@ -67,14 +69,14 @@ public class FrameViewer extends JFrame{
     }
 
     class ButtonClickedEvent implements ActionListener {
-        private Setting setting = Setting.getInstance();
+
         public void actionPerformed(ActionEvent e) {
             String actionCommand = e.getActionCommand();
             Tool currentTool=Tool.getEnumFromValue(actionCommand);
             if(null!=currentTool){
-                setting.setCurrentTool(currentTool);
+                Setting.setCurrentTool(currentTool);
             }else{
-                setting.setCurrentTool(Tool.Select);
+                Setting.setCurrentTool(Tool.Select);
             }
         }
     }
