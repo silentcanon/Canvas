@@ -29,14 +29,15 @@ public class FrameViewer extends JFrame{
         label.setLocation(20,10);
         ButtonClickedEvent buttonClickedEvent = new ButtonClickedEvent();
 
-        JButton selectButton = new JButton("Select");
-        selectButton.setActionCommand("Select");
+        JButton selectButton = new JButton(Tool.Select.getName());
+        selectButton.setActionCommand(Tool.Select.getName());
         selectButton.addActionListener(buttonClickedEvent);
         add(selectButton);
         selectButton.setSize(100, 20);
         selectButton.setLocation(20, 40);
-        JButton rectangleButton = new JButton("Rectangle");
-        rectangleButton.setActionCommand("Rectangle");
+
+        JButton rectangleButton = new JButton(Tool.Rectangle.getName());
+        rectangleButton.setActionCommand(Tool.Rectangle.getName());
         rectangleButton.addActionListener(buttonClickedEvent);
         add(rectangleButton);
         rectangleButton.setSize(100, 20);
@@ -69,14 +70,10 @@ public class FrameViewer extends JFrame{
         private Setting setting = Setting.getInstance();
         public void actionPerformed(ActionEvent e) {
             String actionCommand = e.getActionCommand();
-            if(actionCommand.equals("Select")){
-                //label.setText("Select");
-                setting.setCurrentTool(Tool.Select);
-            } else if(actionCommand.equals("Rectangle")) {
-                //label.setText("Rect");
-                setting.setCurrentTool(Tool.Rectangle);
-            } else {
-                //label.setText("Other");
+            Tool currentTool=Tool.getEnumFromValue(actionCommand);
+            if(null!=currentTool){
+                setting.setCurrentTool(currentTool);
+            }else{
                 setting.setCurrentTool(Tool.Select);
             }
         }
