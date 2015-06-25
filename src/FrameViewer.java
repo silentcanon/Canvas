@@ -69,14 +69,10 @@ public class FrameViewer extends JFrame{
         private Setting setting = Setting.getInstance();
         public void actionPerformed(ActionEvent e) {
             String actionCommand = e.getActionCommand();
-            if(actionCommand.equals("Select")){
-                //label.setText("Select");
-                setting.setCurrentTool(Tool.Select);
-            } else if(actionCommand.equals("Rectangle")) {
-                //label.setText("Rect");
-                setting.setCurrentTool(Tool.Rectangle);
-            } else {
-                //label.setText("Other");
+            Tool currentTool=Tool.getEnumFromValue(actionCommand);
+            if(null!=currentTool){
+                setting.setCurrentTool(currentTool);
+            }else{
                 setting.setCurrentTool(Tool.Select);
             }
         }
