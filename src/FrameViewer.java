@@ -29,14 +29,15 @@ public class FrameViewer extends JFrame{
         label.setLocation(20,10);
         ButtonClickedEvent buttonClickedEvent = new ButtonClickedEvent();
 
-        JButton selectButton = new JButton("Select");
-        selectButton.setActionCommand("Select");
+        JButton selectButton = new JButton(Tool.Select.getName());
+        selectButton.setActionCommand(Tool.Select.getName());
         selectButton.addActionListener(buttonClickedEvent);
         add(selectButton);
         selectButton.setSize(100, 20);
         selectButton.setLocation(20, 40);
-        JButton rectangleButton = new JButton("Rectangle");
-        rectangleButton.setActionCommand("Rectangle");
+
+        JButton rectangleButton = new JButton(Tool.Rectangle.getName());
+        rectangleButton.setActionCommand(Tool.Rectangle.getName());
         rectangleButton.addActionListener(buttonClickedEvent);
         add(rectangleButton);
         rectangleButton.setSize(100, 20);
