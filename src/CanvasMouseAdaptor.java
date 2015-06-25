@@ -63,7 +63,8 @@ public class CanvasMouseAdaptor extends MouseAdapter {
                 width=startX-x;
                 this.currentRect.setLocation(x,this.currentRect.getY());
             }
-            this.currentRect.compResize(width,height );
+            currentRect.setSize(width,height);
+            currentRect.repaint();
             if((x-startX<0)&&(y-startY<0)){
                 this.currentRect.setLocation(x,y);
             }
@@ -71,7 +72,6 @@ public class CanvasMouseAdaptor extends MouseAdapter {
                 this.currentRect.setLocation(startX,startY);
             }
 
-            ((JComponent) e.getSource()).repaint();
         }
 
     }
