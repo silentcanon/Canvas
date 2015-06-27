@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
  */
 public class PatternMouseAdaptor extends MouseAdapter {
     private static PatternMouseAdaptor instance = new PatternMouseAdaptor();
-    private RectangleComponent currentRect = null;
+    private Pattern currentRect = null;
     private int oldX = 0;
     private int oldY = 0;
     private int clickedX = 0;
@@ -43,7 +43,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Press Send event");
         } else {
-            currentRect = ((RectangleComponent)e.getSource());
+            currentRect = ((Pattern)e.getSource());
             oldX = currentRect.getX();
             oldY = currentRect.getY();
             clickedX = e.getX();

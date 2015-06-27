@@ -2,7 +2,7 @@
  * Created by Canon on 2015-06-24.
  */
 public enum Tool {
-    Select("Select"), Rectangle("Rectangle"), Circle("Circle"), Line("Line");
+    Select("Select"), Rectangle("Rectangle"), Circle("Circle"), Line("Line"), Oval("Oval");
 
     public String getName() {
         return name;

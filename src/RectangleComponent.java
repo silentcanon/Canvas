@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 
-public class RectangleComponent extends JComponent {
+public class RectangleComponent extends Pattern {
 
 
     public RectangleComponent(int posx, int posy, int width, int height) {
@@ -14,7 +14,7 @@ public class RectangleComponent extends JComponent {
         addMouseListener(PatternMouseAdaptor.getInstance());
         addMouseMotionListener(PatternMouseAdaptor.getInstance());
 
-        System.out.println(posx + " " + posy + " " + width + " " + height);
+        System.out.println("Rect: "+posx + " " + posy + " " + width + " " + height);
     }
 
     @Override
@@ -26,13 +26,14 @@ public class RectangleComponent extends JComponent {
     }
 
 
-    private int clickAlphaValue(BufferedImage bufImg, int posX, int posY) {
-        int alpha;
-        alpha = (bufImg.getRGB(posX, posY) >>24) & 0x000000FF; //Gets the bit that contains alpha information
-        return alpha;
-    }
+//    private int clickAlphaValue(BufferedImage bufImg, int posX, int posY) {
+//        int alpha;
+//        alpha = (bufImg.getRGB(posX, posY) >>24) & 0x000000FF; //Gets the bit that contains alpha information
+//        return alpha;
+//    }
 
-    private BufferedImage getBufImg()
+    @Override
+    protected BufferedImage getBufImg()
     {
         BufferedImage newImg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB); //Create a new buffered image the right size
         Graphics2D g2d = newImg.createGraphics();
@@ -43,20 +44,20 @@ public class RectangleComponent extends JComponent {
         return newImg;
     }
 
-    public boolean isHit(int posx, int posy) {
-        BufferedImage im = getBufImg();
-        for(int x = posx - 3; x <= posx+3;x++) {
-            if(x <0 || x > getWidth())
-                continue;
-            for(int y = posy - 3;y <= posy+3; y++) {
-                if(y < 0 || y > getHeight())
-                    continue;
-                if(clickAlphaValue(im, x, y) > 0)// is not transparent
-                    return true;
-            }
-        }
-        return false;
-    }
+//    public boolean isHit(int posx, int posy) {
+//        BufferedImage im = getBufImg();
+//        for(int x = posx - 3; x <= posx+3;x++) {
+//            if(x <0 || x > getWidth())
+//                continue;
+//            for(int y = posy - 3;y <= posy+3; y++) {
+//                if(y < 0 || y > getHeight())
+//                    continue;
+//                if(clickAlphaValue(im, x, y) > 0)// is not transparent
+//                    return true;
+//            }
+//        }
+//        return false;
+//    }
 
 
 

@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class CanvasMouseAdaptor extends MouseAdapter {
     private static CanvasMouseAdaptor instance = new CanvasMouseAdaptor();
 
-    private RectangleComponent currentRect = null;
+    private Pattern currentRect = null;
     private int startX;
     private int startY;
 
@@ -38,6 +38,16 @@ public class CanvasMouseAdaptor extends MouseAdapter {
             source.add(rectangle, Setting.getLayer());
             source.repaint();
             //jFrame.update(jFrame.getGraphics());}
+        } else if(Setting.getCurrentTool() == Tool.Oval) {
+            startX = e.getX();
+            startY = e.getY();
+            System.out.println("Mouse Pos: " + startX + " " + startY);
+            OvalPattern ovalPattern = new OvalPattern(startX, startY, 1, 1);
+            this.currentRect = ovalPattern;
+            JLayeredPane source = (JLayeredPane) e.getSource();
+
+            source.add(ovalPattern, Setting.getLayer());
+            source.repaint();
         }
     }
 
@@ -50,7 +60,6 @@ public class CanvasMouseAdaptor extends MouseAdapter {
         }
         int x = e.getX();
         int y = e.getY();
-        //System.out.println(x + " " + y);
         if(this.currentRect != null) {
             int height=y-startY;
             if(y-startY<0){

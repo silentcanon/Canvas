@@ -44,6 +44,13 @@ public class FrameViewer extends JFrame{
         rectangleButton.setLocation(20, 60);
 
 
+        JButton ovalButton = new JButton(Tool.Oval.getName());
+        ovalButton.setActionCommand(Tool.Oval.getName());
+        ovalButton.addActionListener(buttonClickedEvent);
+        add(ovalButton);
+        ovalButton.setSize(100, 20);
+        ovalButton.setLocation(20, 80);
+
         canvas = new JLayeredPane();
         add(canvas);
         canvas.setSize(300, 400);
