@@ -26,6 +26,14 @@ public abstract class Pattern extends JComponent{
         return false;
     }
 
+    @Override
+    public boolean contains(int x, int y) {
+        if (super.contains(x,y)) {
+            return isHit(x,y);
+        }
+        return false;
+    }
+
     protected int clickAlphaValue(BufferedImage bufImg, int posX, int posY) {
         int alpha;
         alpha = (bufImg.getRGB(posX, posY) >>24) & 0x000000FF; //Gets the bit that contains alpha information

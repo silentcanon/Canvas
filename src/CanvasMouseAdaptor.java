@@ -35,7 +35,7 @@ public class CanvasMouseAdaptor extends MouseAdapter {
             this.currentRect = rectangle;
             JLayeredPane source = (JLayeredPane) e.getSource();
 
-            source.add(rectangle, Setting.getLayer());
+            source.add(rectangle, new Integer(Setting.getLayer()));
             source.repaint();
             //jFrame.update(jFrame.getGraphics());}
         } else if(Setting.getCurrentTool() == Tool.Oval) {
@@ -46,7 +46,7 @@ public class CanvasMouseAdaptor extends MouseAdapter {
             this.currentRect = ovalPattern;
             JLayeredPane source = (JLayeredPane) e.getSource();
 
-            source.add(ovalPattern, Setting.getLayer());
+            source.add(ovalPattern, new Integer(Setting.getLayer()));
             source.repaint();
         }
     }
