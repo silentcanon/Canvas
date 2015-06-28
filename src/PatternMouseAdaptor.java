@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
  */
 public class PatternMouseAdaptor extends MouseAdapter {
     private static PatternMouseAdaptor instance = new PatternMouseAdaptor();
-    private Pattern currentRect = null;
+
     private int oldX = 0;
     private int oldY = 0;
     private int clickedX = 0;
@@ -27,11 +27,13 @@ public class PatternMouseAdaptor extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        System.out.println("Mouse Clicked in pattern");
-        Component source = (Component) e.getSource();
-        Container parent = source.getParent();
-        parent.remove(source);
-        parent.repaint();
+        if(Setting.getCurrentTool() == Tool.Select) {
+            System.out.println("Pattern is selected");
+            //Component source = (Component) e.getSource();
+            //Container parent = source.getParent();
+            //parent.remove(source);
+            //parent.repaint();
+        }
     }
 
     @Override
@@ -43,9 +45,10 @@ public class PatternMouseAdaptor extends MouseAdapter {
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Press Send event");
         } else {
-            currentRect = ((Pattern)e.getSource());
-            oldX = currentRect.getX();
-            oldY = currentRect.getY();
+            Pattern currentPattern = ((Pattern)e.getSource());
+            Environ.setSelectedPattern(currentPattern);
+            oldX = currentPattern.getX();
+            oldY = currentPattern.getY();
             clickedX = e.getX();
             clickedY = e.getY();
             System.out.println("Mouse Pressed in pattern");
@@ -64,8 +67,9 @@ public class PatternMouseAdaptor extends MouseAdapter {
             int newY = oldY + (e.getY() - clickedY);
             oldX = newX;
             oldY = newY;
-            currentRect.setLocation(newX, newY);
-            currentRect.repaint();
+            Pattern currentPattern = Environ.getSelectedPattern();
+            currentPattern.setLocation(newX, newY);
+            currentPattern.repaint();
             System.out.println("Mouse Dragged in pattern");
         }
 
@@ -75,7 +79,8 @@ public class PatternMouseAdaptor extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        currentRect = null;
+        Pattern currentPattern = Environ.getSelectedPattern();
+        currentPattern = null;
 
     }
 }

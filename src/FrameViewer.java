@@ -1,8 +1,5 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.BufferedReader;
 
 import javax.swing.*;
@@ -58,7 +55,9 @@ public class FrameViewer extends JFrame{
 
         canvas.addMouseListener(CanvasMouseAdaptor.getInstance());
         canvas.addMouseMotionListener(CanvasMouseAdaptor.getInstance());
-
+        canvas.setFocusable(true);
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DELETE"), "DELETE");
+        canvas.getActionMap().put("DELETE", new DeleteAction());
 
     }
 
@@ -85,6 +84,22 @@ public class FrameViewer extends JFrame{
             }else{
                 Setting.setCurrentTool(Tool.Select);
             }
+        }
+    }
+
+    class DeleteAction extends AbstractAction {
+        public DeleteAction() {
+            super();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Pattern pattern = Environ.getSelectedPattern();
+            Environ.setSelectedPattern(null);
+            JComponent parent = (JComponent)e.getSource();
+            parent.remove(pattern);
+            parent.repaint();
+            System.out.println("Pattern has been removed");
         }
     }
 }
