@@ -14,10 +14,10 @@ public abstract class Pattern extends JComponent{
     public boolean isHit(int posx, int posy) {
         BufferedImage im = getBufImg();
         for(int x = posx - 3; x <= posx+3;x++) {
-            if(x <0 || x > getWidth())
+            if(x <0 || x >= getWidth())
                 continue;
             for(int y = posy - 3;y <= posy+3; y++) {
-                if(y < 0 || y > getHeight())
+                if(y < 0 || y >= getHeight())
                     continue;
                 if(clickAlphaValue(im, x, y) > 0)// is not transparent
                     return true;

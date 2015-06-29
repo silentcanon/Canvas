@@ -1,0 +1,121 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+
+/**
+ * Created by Canon on 2015-06-23.
+ */
+public class CanvasMouseAdaptor2 extends MouseAdapter {
+    private static CanvasMouseAdaptor2 instance = new CanvasMouseAdaptor2();
+
+    private Pattern currentRect = null;
+    private int startX;
+    private int startY;
+
+    private CanvasMouseAdaptor2() {
+        super();
+    }
+
+    public static CanvasMouseAdaptor2 getInstance() {
+        return instance;
+    }
+
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
+        if (Setting.getCurrentTool() == Tool.Select) {
+            return;
+        } else if (Setting.getCurrentTool() == Tool.Rectangle) {
+            startX = e.getX();
+            startY = e.getY();
+            System.out.println("Mouse Pos: " + startX + " " + startY);
+            Rectangle rect = new Rectangle(startX,startY,1,1);
+            GlassPanel glassPanel = Environ.getGlassPanel();
+            glassPanel.setShape(rect);
+        } else if(Setting.getCurrentTool() == Tool.Oval) {
+            startX = e.getX();
+            startY = e.getY();
+            System.out.println("Mouse Pos: " + startX + " " + startY);
+            Ellipse2D oval = new Ellipse2D.Float(startX,startY,1,1);
+            Environ.getGlassPanel().setShape(oval);
+        }
+    }
+
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        super.mouseDragged(e);
+        Tool currentTool = Setting.getCurrentTool();
+        if (currentTool == Tool.Select) {
+            return;
+        }
+        int x = e.getX();
+        int y = e.getY();
+        int nx,ny,height,width;
+        width = Math.abs(x-startX);
+        height = Math.abs(y-startY);
+        nx = startX;
+        ny = startY;
+        if(y < startY)
+            ny = y;
+        if(x < startX)
+            nx = x;
+        GlassPanel glassPanel = Environ.getGlassPanel();
+        Shape s = null;
+        if(currentTool == Tool.Rectangle) {
+            s = new Rectangle(nx,ny,width-1,height-1);
+        } else if(currentTool == Tool.Oval) {
+            s = new Ellipse2D.Float(nx,ny,width-1,height-1);
+        }
+        glassPanel.setShape(s);
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        super.mouseReleased(e);
+        Tool currentTool = Setting.getCurrentTool();
+        if (currentTool == Tool.Select) {
+            Environ.getGlassPanel().clear();
+            Environ.setSelectedPattern(null);
+            return;
+        }
+        int x = e.getX();
+        int y = e.getY();
+        int nx,ny,height,width;
+        width = Math.abs(x-startX);
+        height = Math.abs(y-startY);
+        nx = startX;
+        ny = startY;
+        if(y < startY)
+            ny = y;
+        if(x < startX)
+            nx = x;
+        Pattern p = null;
+        Environ.getGlassPanel().setShape(null);
+        if(currentTool == Tool.Rectangle) {
+            p = new RectangleComponent(nx,ny,width,height);
+        } else if(currentTool == Tool.Oval) {
+            p = new OvalPattern(nx,ny,width,height);
+        }
+        ((JLayeredPane)e.getSource()).add(p,Setting.getLayer());
+
+    }
+
+
+
+//    @Override
+//    public void mouseMoved(MouseEvent e) {
+//        super.mouseMoved(e);
+//        int x = e.getX();
+//        int y = e.getY();
+//        System.out.println(x + " " + y);
+//    }
+
+
+
+}

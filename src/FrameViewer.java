@@ -53,12 +53,17 @@ public class FrameViewer extends JFrame{
         canvas.setSize(300, 400);
         canvas.setLocation(0, 100);
 
-        canvas.addMouseListener(CanvasMouseAdaptor.getInstance());
-        canvas.addMouseMotionListener(CanvasMouseAdaptor.getInstance());
+        canvas.addMouseListener(CanvasMouseAdaptor2.getInstance());
+        canvas.addMouseMotionListener(CanvasMouseAdaptor2.getInstance());
         canvas.setFocusable(true);
         canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DELETE"), "DELETE");
         canvas.getActionMap().put("DELETE", new DeleteAction());
 
+        GlassPanel glassCanvas = new GlassPanel();
+        Environ.setGlassPanel(glassCanvas);
+        add(glassCanvas, 0);
+        glassCanvas.setSize(300,400);
+        glassCanvas.setLocation(0,100);
     }
 
 
@@ -97,6 +102,7 @@ public class FrameViewer extends JFrame{
             Pattern pattern = Environ.getSelectedPattern();
             Environ.setSelectedPattern(null);
             JComponent parent = (JComponent)e.getSource();
+            Environ.getGlassPanel().clear();
             parent.remove(pattern);
             parent.repaint();
             System.out.println("Pattern has been removed");

@@ -29,6 +29,9 @@ public class PatternMouseAdaptor extends MouseAdapter {
         super.mouseClicked(e);
         if(Setting.getCurrentTool() == Tool.Select) {
             System.out.println("Pattern is selected");
+            Pattern currentPattern = ((Pattern)e.getSource());
+            Environ.getGlassPanel().drawBorder(currentPattern.getX(),currentPattern.getY(),
+                    currentPattern.getWidth(),currentPattern.getHeight());
             //Component source = (Component) e.getSource();
             //Container parent = source.getParent();
             //parent.remove(source);
@@ -70,6 +73,10 @@ public class PatternMouseAdaptor extends MouseAdapter {
             Pattern currentPattern = Environ.getSelectedPattern();
             currentPattern.setLocation(newX, newY);
             currentPattern.repaint();
+            Environ.getGlassPanel().setShape(new Rectangle(
+                    currentPattern.getX(),currentPattern.getY(),
+                    currentPattern.getWidth(),currentPattern.getHeight()
+            ));
             System.out.println("Mouse Dragged in pattern");
         }
 
@@ -79,8 +86,15 @@ public class PatternMouseAdaptor extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        Pattern currentPattern = Environ.getSelectedPattern();
-        currentPattern = null;
+        if(Setting.getCurrentTool() != Tool.Select) {
+            MouseEvent e1 = SwingUtilities.convertMouseEvent((Component) e.getSource(), e, ((Component) e.getSource()).getParent());
+            ((Component) e.getSource()).getParent().dispatchEvent(e1);
+            System.out.println("Release Send event");
+        } else {
+            Pattern currentPattern = Environ.getSelectedPattern();
+            //Environ.getGlassPanel().clear();
+            currentPattern = null;
+        }
 
     }
 }
