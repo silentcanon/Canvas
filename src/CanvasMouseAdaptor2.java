@@ -103,7 +103,7 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
         if(x < startX)
             nx = x;
         Pattern p = null;
-        Environ.getGlassPanel().setShape(null);
+        Environ.getGlassPanel().clear();
         if(currentTool == Tool.Rectangle) {
             p = new RectangleComponent(nx,ny,width,height);
         } else if(currentTool == Tool.Oval) {
