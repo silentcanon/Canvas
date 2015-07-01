@@ -65,6 +65,34 @@ public class FrameViewer extends JFrame{
         canvas.setFocusable(true);
         canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DELETE"), "DELETE");
         canvas.getActionMap().put("DELETE", new DeleteAction());
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control A"),"control A");
+        canvas.getActionMap().put("control A", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("control + A");
+            }
+        });
+
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_CONTROL,InputEvent.CTRL_DOWN_MASK),"control down");
+        canvas.getActionMap().put("control down", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(Setting.getCurrentTool() == Tool.Select) {
+                    System.out.println("control down");
+                    Setting.setCurrentTool(Tool.MultiSelect);
+                }
+            }
+        });
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_CONTROL,0,true),"control release");
+        canvas.getActionMap().put("control release", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(Setting.getCurrentTool() == Tool.MultiSelect) {
+                    System.out.println("control release");
+                    Setting.setCurrentTool(Tool.Select);
+                }
+            }
+        });
 
         GlassPanel glassCanvas = new GlassPanel();
         Environ.setGlassPanel(glassCanvas);
