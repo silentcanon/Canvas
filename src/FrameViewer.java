@@ -56,6 +56,13 @@ public class FrameViewer extends JFrame{
         lineButton.setSize(100, 20);
         lineButton.setLocation(20, 100);
 
+        JButton pencilButton = new JButton(Tool.Pencil.getName());
+        pencilButton.setActionCommand(Tool.Pencil.getName());
+        pencilButton.addActionListener(buttonClickedEvent);
+        add(pencilButton);
+        pencilButton.setSize(100, 20);
+        pencilButton.setLocation(20, 120);
+
         canvas = new JLayeredPane();
         add(canvas);
         canvas.setSize(300, 400);
