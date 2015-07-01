@@ -42,7 +42,7 @@ public class GlassPanel extends JPanel {
     public void drawBorder(int x, int y, int width, int height) {
         Rectangle rect = new Rectangle(x,y,width-1,height-1);
         color = Color.GREEN;
-        addShape(rect);
+        setShape(rect);
         //color = color.BLACK;
     }
 
