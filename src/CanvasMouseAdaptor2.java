@@ -109,7 +109,7 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
         } else if(currentTool == Tool.Oval) {
             p = new OvalPattern(nx,ny,width,height);
         }else if(currentTool==Tool.Line){
-            p=new LinePattern(nx,ny,width,height);
+            p=new LinePattern(nx,ny,width,height,startX,startY,x,y);
         }
         ((JLayeredPane)e.getSource()).add(p,Setting.getLayer());
 
