@@ -18,17 +18,17 @@ public class LinePattern extends Pattern{
         setLocation(x, y);
         addMouseListener(PatternMouseAdaptor.getInstance());
         addMouseMotionListener(PatternMouseAdaptor.getInstance());
-        this.startX=startX;
-        this.startY=startY;
-        this.endX=endX;
-        this.endY=endY;
+        this.startX=startX-getX();
+        this.startY=startY-getY();
+        this.endX=endX-getX();
+        this.endY=endY-getY();
 
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawLine(startX-getX(), startY-getY(), endX-getX(), endY-getY());
+        g2.drawLine(startX, startY, endX, endY);
     }
 
     @Override
@@ -36,11 +36,7 @@ public class LinePattern extends Pattern{
         BufferedImage newImg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB); //Create a new buffered image the right size
         Graphics2D g2d = newImg.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        System.out.println(startX-getX());
-        System.out.println(startY-getY());
-        System.out.println(endX-getX());
-        System.out.println(endY-getY());
-        g2d.drawLine(startX-getX(), startY-getY(), endX-getX(), endY-getY());
+        g2d.drawLine(startX, startY, endX, endY);
         g2d.dispose();
         return newImg;
     }
