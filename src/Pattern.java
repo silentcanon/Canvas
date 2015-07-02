@@ -9,7 +9,7 @@ public abstract class Pattern extends JComponent{
 
     public Pattern() {
         super();
-        this.patternGroup = new PatternGroup(this);
+        this.patternGroup = null;
     }
 
     public PatternGroup getPatternGroup() {
@@ -17,7 +17,7 @@ public abstract class Pattern extends JComponent{
     }
 
     public void clearGroup() {
-        this.patternGroup = new PatternGroup(this);
+        this.patternGroup = null;
     }
 
     public boolean isInGroup() {
