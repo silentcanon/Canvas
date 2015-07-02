@@ -5,8 +5,36 @@ import java.awt.image.BufferedImage;
  * Created by Canon on 2015-06-25.
  */
 public abstract class Pattern extends JComponent{
+    protected PatternGroup patternGroup;
+
     public Pattern() {
         super();
+        this.patternGroup = new PatternGroup(this);
+    }
+
+    public PatternGroup getPatternGroup() {
+        return this.patternGroup;
+    }
+
+    public void clearGroup() {
+        this.patternGroup = new PatternGroup(this);
+    }
+
+    public boolean isInGroup() {
+        if(patternGroup.size() == 1) {
+            return false;
+        }
+        return true;
+    }
+
+    public void setPatternGroup(PatternGroup patternGroup) {
+        this.patternGroup = patternGroup;
+    }
+
+
+
+    public void moveDelta(int dx, int dy) {
+        setLocation(getX()+dx,getY()+dy);
     }
 
     protected abstract BufferedImage getBufImg();

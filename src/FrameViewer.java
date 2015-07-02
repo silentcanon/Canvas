@@ -134,11 +134,12 @@ public class FrameViewer extends JFrame{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Pattern pattern = Environ.getSelectedPattern();
-            Environ.setSelectedPattern(null);
+            Pattern[] patterns = Environ.getSelectedPatterns();
+            Environ.clearSelectedpatterns();
             JComponent parent = (JComponent)e.getSource();
             Environ.getGlassPanel().clear();
-            parent.remove(pattern);
+            for(Pattern p: patterns)
+                parent.remove(p);
             parent.repaint();
             System.out.println("Pattern has been removed");
         }

@@ -28,50 +28,60 @@ public class PatternMouseAdaptor extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
         if(Setting.getCurrentTool() == Tool.Select) {
-            System.out.println("Pattern is selected");
-            Pattern currentPattern = ((Pattern)e.getSource());
-            Environ.getGlassPanel().drawBorder(currentPattern.getX(),currentPattern.getY(),
-                    currentPattern.getWidth(),currentPattern.getHeight());
+//            Pattern currentPattern = ((Pattern)e.getSource());
+//            Environ.getGlassPanel().drawBorder(currentPattern.getX(),currentPattern.getY(),
+//                    currentPattern.getWidth(),currentPattern.getHeight());
             //Component source = (Component) e.getSource();
             //Container parent = source.getParent();
             //parent.remove(source);
             //parent.repaint();
+        } else if(Setting.getCurrentTool() == Tool.MultiSelect) {
+//            Pattern currentPattern = ((Pattern)e.getSource());
+//            Environ
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        if(Setting.getCurrentTool() != Tool.Select) {
-
+        if((Setting.getCurrentTool() != Tool.Select) && (Setting.getCurrentTool() != Tool.MultiSelect)) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Press Send event");
-        } else {
+        } else if(Setting.getCurrentTool() == Tool.Select){
             Pattern currentPattern = ((Pattern)e.getSource());
             Environ.setSelectedPattern(currentPattern);
+            Environ.getGlassPanel().drawBorder(currentPattern.getX(),currentPattern.getY(),
+                    currentPattern.getWidth(),currentPattern.getHeight());
             oldX = currentPattern.getX();
             oldY = currentPattern.getY();
             clickedX = e.getX();
             clickedY = e.getY();
             System.out.println("Mouse Pressed in pattern");
+        } else if(Setting.getCurrentTool() == Tool.MultiSelect) {
+            Pattern currentPattern = ((Pattern)e.getSource());
+            Environ.addSelectedPattern(currentPattern);
+            GlassPanel glassPanel = Environ.getGlassPanel();
+
+            Environ.getGlassPanel().drawBorder(currentPattern.getX(),currentPattern.getY(),
+                    currentPattern.getWidth(),currentPattern.getHeight());
+
         }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         super.mouseDragged(e);
-        if(Setting.getCurrentTool() != Tool.Select) {
+        if(Setting.getCurrentTool() != Tool.Select && Setting.getCurrentTool() != Tool.MultiSelect) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Drag Send event");
         } else {
-            int newX = oldX + (e.getX() - clickedX);
-            int newY = oldY + (e.getY() - clickedY);
-            oldX = newX;
-            oldY = newY;
-            Pattern currentPattern = Environ.getSelectedPattern();
-            currentPattern.setLocation(newX, newY);
+            int dx = e.getX() - clickedX;
+            int dy = e.getY() - clickedY;
+            Pattern[] currentPatterns = Environ.getSelectedPatterns();
+            Pattern currentPattern = currentPatterns[0];
+            currentPattern.moveDelta(dx,dy);
             currentPattern.repaint();
             Environ.getGlassPanel().setShape(new Rectangle(
                     currentPattern.getX(),currentPattern.getY(),
@@ -86,14 +96,15 @@ public class PatternMouseAdaptor extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
-        if(Setting.getCurrentTool() != Tool.Select) {
+        if(Setting.getCurrentTool() != Tool.Select && Setting.getCurrentTool() != Tool.MultiSelect) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component) e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Release Send event");
         } else {
-            Pattern currentPattern = Environ.getSelectedPattern();
+            //Pattern currentPattern = Environ.getSelectedPattern();
             //Environ.getGlassPanel().clear();
-            currentPattern = null;
+            //currentPattern = null;
+
         }
 
     }
