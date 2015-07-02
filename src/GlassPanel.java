@@ -33,17 +33,23 @@ public class GlassPanel extends JPanel {
     }
 
     public void setShape(Shape s) {
-        shapes.clear();
+        clear();
         shapes.add(s);
         repaint();
     }
 
 
-    public void drawBorder(int x, int y, int width, int height) {
+    public void setBorder(int x, int y, int width, int height) {
         Rectangle rect = new Rectangle(x,y,width-1,height-1);
         color = Color.GREEN;
         setShape(rect);
         //color = color.BLACK;
+    }
+
+    public void addBorder(int x, int y, int width, int height) {
+        Rectangle rect = new Rectangle(x,y,width-1,height-1);
+        color = Color.GREEN;
+        addShape(rect);
     }
 
     public void clear() {

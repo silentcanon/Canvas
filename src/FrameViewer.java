@@ -63,6 +63,20 @@ public class FrameViewer extends JFrame{
         pencilButton.setSize(100, 20);
         pencilButton.setLocation(20, 120);
 
+        JButton combineButton = new JButton("Combine");
+        combineButton.setActionCommand(this.getName());
+        combineButton.addActionListener(buttonClickedEvent);
+        add(combineButton);
+        combineButton.setSize(100, 20);
+        combineButton.setLocation(120, 40);
+
+        JButton unbineButton = new JButton("Unbine");
+        unbineButton.setActionCommand(this.getName());
+        unbineButton.addActionListener(buttonClickedEvent);
+        add(unbineButton);
+        unbineButton.setSize(100, 20);
+        unbineButton.setLocation(120, 60);
+
         canvas = new JLayeredPane();
         add(canvas);
         canvas.setSize(300, 400);
@@ -73,7 +87,7 @@ public class FrameViewer extends JFrame{
         canvas.setFocusable(true);
         canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DELETE"), "DELETE");
         canvas.getActionMap().put("DELETE", new DeleteAction());
-        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control A"),"control A");
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control A"), "control A");
         canvas.getActionMap().put("control A", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by Canon on 2015-06-28.
  */
 public class Environ {
-    private static ArrayList<Pattern> selectedPatterns = new ArrayList<Pattern>();
+    private static HashSet<Pattern> selectedPatterns = new HashSet<Pattern>();
     private static GlassPanel glassPanel = null;
 
     public static Pattern[] getSelectedPatterns() {
@@ -13,15 +14,21 @@ public class Environ {
 
     public static void addSelectedPattern(Pattern p) {
         selectedPatterns.add(p);
+        System.out.println("Number of selected patterns: "+selectedPatterns.size());
     }
 
     public static void setSelectedPattern(Pattern pattern) {
+
         selectedPatterns.clear();
         selectedPatterns.add(pattern);
     }
 
     public static void clearSelectedpatterns() {
         selectedPatterns.clear();
+    }
+
+    public static boolean selectedPatternsContains(Pattern p) {
+        return selectedPatterns.contains(p);
     }
 
     public static void setGlassPanel(GlassPanel p) {

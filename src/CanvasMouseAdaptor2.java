@@ -110,9 +110,9 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         super.mouseReleased(e);
         Tool currentTool = Setting.getCurrentTool();
-        if (currentTool == Tool.Select) {
+        if (currentTool == Tool.Select || currentTool == Tool.MultiSelect) {
             Environ.getGlassPanel().clear();
-            Environ.setSelectedPattern(null);
+            Environ.clearSelectedpatterns();
             return;
         }
         int x = e.getX();
