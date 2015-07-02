@@ -2,7 +2,8 @@
  * Created by Canon on 2015-06-24.
  */
 public enum Tool {
-    Select("Select"), Rectangle("Rectangle"), Pencil("Pencil"), Line("Line"), Oval("Oval"), MultiSelect("MultiSelect");
+    Select("Select"), Rectangle("Rectangle"), Pencil("Pencil"), Line("Line"), Oval("Oval"), MultiSelect("MultiSelect"),
+    Group("Group"), Ungroup("Ungroup") ;
 
     public String getName() {
         return name;

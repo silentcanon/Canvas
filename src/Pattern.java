@@ -20,17 +20,10 @@ public abstract class Pattern extends JComponent{
         this.patternGroup = null;
     }
 
-    public boolean isInGroup() {
-        if(patternGroup.size() == 1) {
-            return false;
-        }
-        return true;
-    }
 
     public void setPatternGroup(PatternGroup patternGroup) {
         this.patternGroup = patternGroup;
     }
-
 
 
     public void moveDelta(int dx, int dy) {

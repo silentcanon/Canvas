@@ -63,14 +63,14 @@ public class FrameViewer extends JFrame{
         pencilButton.setSize(100, 20);
         pencilButton.setLocation(20, 120);
 
-        JButton combineButton = new JButton("Combine");
+        JButton combineButton = new JButton(Tool.Group.getName());
         combineButton.setActionCommand(this.getName());
         combineButton.addActionListener(buttonClickedEvent);
         add(combineButton);
         combineButton.setSize(100, 20);
         combineButton.setLocation(120, 40);
 
-        JButton unbineButton = new JButton("Unbine");
+        JButton unbineButton = new JButton(Tool.Ungroup.getName());
         unbineButton.setActionCommand(this.getName());
         unbineButton.addActionListener(buttonClickedEvent);
         add(unbineButton);
@@ -157,12 +157,31 @@ public class FrameViewer extends JFrame{
 
         public void actionPerformed(ActionEvent e) {
             String actionCommand = e.getActionCommand();
+
             Tool currentTool=Tool.getEnumFromValue(actionCommand);
-            if(null!=currentTool){
-                Setting.setCurrentTool(currentTool);
-            }else{
+
+            if(currentTool == null)
                 Setting.setCurrentTool(Tool.Select);
+            if(currentTool == Tool.Group) {
+                groupAction();
+            } else if(currentTool == Tool.Ungroup) {
+                ungroupAction();
+            } else {
+                Setting.setCurrentTool(currentTool);
             }
+        }
+
+        public void groupAction() {
+            Pattern[] patterns = Environ.getSelectedPatterns();
+            PatternGroup pg = new PatternGroup(patterns);
+            for(Pattern p: patterns) {
+                p.setPatternGroup(pg);
+            }
+        }
+
+        public void ungroupAction() {
+            Pattern[] patterns = Environ.getSelectedPatterns();
+            patterns[0].getPatternGroup().unGroup();
         }
     }
 
