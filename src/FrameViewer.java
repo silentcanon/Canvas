@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
+import java.util.Set;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -55,6 +56,13 @@ public class FrameViewer extends JFrame{
         lineButton.setSize(100, 20);
         lineButton.setLocation(20, 100);
 
+        JButton pencilButton = new JButton(Tool.Pencil.getName());
+        pencilButton.setActionCommand(Tool.Pencil.getName());
+        pencilButton.addActionListener(buttonClickedEvent);
+        add(pencilButton);
+        pencilButton.setSize(100, 20);
+        pencilButton.setLocation(20, 120);
+
         canvas = new JLayeredPane();
         add(canvas);
         canvas.setSize(300, 400);
@@ -91,6 +99,23 @@ public class FrameViewer extends JFrame{
                     System.out.println("control release");
                     Setting.setCurrentTool(Tool.Select);
                 }
+            }
+        });
+
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT,InputEvent.SHIFT_DOWN_MASK),"shift down");
+        canvas.getActionMap().put("shift down", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Setting.setShift(true);
+                System.out.println("shift down");
+            }
+        });
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT,0,true),"shift release");
+        canvas.getActionMap().put("shift release", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("shift release");
+                Setting.setShift(false);
             }
         });
 
