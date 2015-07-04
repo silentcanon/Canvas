@@ -64,14 +64,14 @@ public class FrameViewer extends JFrame{
         pencilButton.setLocation(20, 120);
 
         JButton combineButton = new JButton(Tool.Group.getName());
-        combineButton.setActionCommand(this.getName());
+        combineButton.setActionCommand(Tool.Group.getName());
         combineButton.addActionListener(buttonClickedEvent);
         add(combineButton);
         combineButton.setSize(100, 20);
         combineButton.setLocation(120, 40);
 
         JButton unbineButton = new JButton(Tool.Ungroup.getName());
-        unbineButton.setActionCommand(this.getName());
+        unbineButton.setActionCommand(Tool.Ungroup.getName());
         unbineButton.addActionListener(buttonClickedEvent);
         add(unbineButton);
         unbineButton.setSize(100, 20);
@@ -186,16 +186,21 @@ public class FrameViewer extends JFrame{
         }
 
         public void groupAction() {
-            Pattern[] patterns = Environ.getSelectedPatterns();
-            PatternGroup pg = new PatternGroup(patterns);
-            for(Pattern p: patterns) {
-                p.setPatternGroup(pg);
-            }
+            Environ.grouping();
+            PatternGroup pg = Environ.getGroups()[0];
+            GlassPanel gp = Environ.getGlassPanel();
+            gp.clear();
+            gp.setBorder(pg.getX(),pg.getY(),pg.getWidth(),pg.getHeight());
         }
 
         public void ungroupAction() {
+            Environ.ungrouping();
             Pattern[] patterns = Environ.getSelectedPatterns();
-            patterns[0].getPatternGroup().unGroup();
+            GlassPanel glassPanel = Environ.getGlassPanel();
+            glassPanel.clear();
+            for(Pattern p: patterns) {
+                glassPanel.addBorder(p.getX(),p.getY(),p.getWidth(),p.getHeight());
+            }
         }
     }
 

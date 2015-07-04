@@ -55,15 +55,29 @@ public class PatternMouseAdaptor extends MouseAdapter {
             if(Environ.selectedPatternsContains(currentPattern)) {
                 return;
             }
-            Environ.setSelectedPattern(currentPattern);
-            glassPanel.setBorder(currentPattern.getX(), currentPattern.getY(),
-                    currentPattern.getWidth(), currentPattern.getHeight());
+            if(currentPattern.isInGroup()) {
+                PatternGroup patternGroup = currentPattern.getPatternGroup();
+                Environ.setSelectedPatternGroup(patternGroup);
+                glassPanel.setBorder(patternGroup.getX(),patternGroup.getY(),
+                        patternGroup.getWidth(),patternGroup.getHeight());
+            } else {//Pattern is not in a pattern group
+                Environ.setSelectedPattern(currentPattern);
+                glassPanel.setBorder(currentPattern.getX(), currentPattern.getY(),
+                        currentPattern.getWidth(), currentPattern.getHeight());
+            }
             System.out.println("Mouse Pressed in pattern");
         } else if(Setting.getCurrentTool() == Tool.MultiSelect) {
-            System.out.println("Current Tool:"+Tool.MultiSelect.getName());
-            Environ.addSelectedPattern(currentPattern);
-            glassPanel.addBorder(currentPattern.getX(), currentPattern.getY(),
-                    currentPattern.getWidth(), currentPattern.getHeight());
+            System.out.println("Current Tool:" + Tool.MultiSelect.getName());
+            if(currentPattern.isInGroup()) {
+                PatternGroup patternGroup = currentPattern.getPatternGroup();
+                Environ.addSelectedPatternGroup(patternGroup);
+                glassPanel.addBorder(patternGroup.getX(),patternGroup.getY(),
+                        patternGroup.getWidth(),patternGroup.getHeight());
+            } else {
+                Environ.addSelectedPattern(currentPattern);
+                glassPanel.addBorder(currentPattern.getX(), currentPattern.getY(),
+                        currentPattern.getWidth(), currentPattern.getHeight());
+            }
 
         }
     }

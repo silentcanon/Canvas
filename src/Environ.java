@@ -6,15 +6,33 @@ import java.util.HashSet;
  */
 public class Environ {
     private static HashSet<Pattern> selectedPatterns = new HashSet<Pattern>();
+    private static HashSet<PatternGroup> selectedPatternGroups = new HashSet<PatternGroup>();
     private static GlassPanel glassPanel = null;
 
     public static Pattern[] getSelectedPatterns() {
         return (Pattern[])selectedPatterns.toArray(new Pattern[0]);
     }
 
+    public static PatternGroup[] getGroups() {
+        return (PatternGroup[])selectedPatternGroups.toArray(new PatternGroup[0]);
+    }
+
     public static void addSelectedPattern(Pattern p) {
         selectedPatterns.add(p);
         System.out.println("Number of selected patterns: "+selectedPatterns.size());
+    }
+
+    private static void setSelectedPatterns(Pattern[] patterns) {
+        selectedPatterns.clear();
+        for(Pattern p: patterns) {
+            selectedPatterns.add(p);
+        }
+    }
+
+    private static void addSelectedPatterns(Pattern[] patterns) {
+        for(Pattern p: patterns) {
+            selectedPatterns.add(p);
+        }
     }
 
     public static void setSelectedPattern(Pattern pattern) {
@@ -23,9 +41,44 @@ public class Environ {
         selectedPatterns.add(pattern);
     }
 
+    public static void addSelectedPatternGroup(PatternGroup pg) {
+        selectedPatternGroups.add(pg);
+    }
+
+    public static void setSelectedPatternGroup(PatternGroup pg) {
+        selectedPatternGroups.clear();
+        selectedPatternGroups.add(pg);
+    }
+
     public static void clearSelectedpatterns() {
         selectedPatterns.clear();
+        selectedPatternGroups.clear();
     }
+
+    public static void ungrouping() {
+        //turn all selected groups to patterns
+        if(selectedPatternGroups.isEmpty()) {
+            return;
+        }
+        for(PatternGroup patternGroup: selectedPatternGroups) {
+            Pattern[] patterns = patternGroup.getPatterns();
+            patternGroup.unGroup();
+            addSelectedPatterns(patterns);
+        }
+        selectedPatternGroups.clear();
+    }
+
+
+    public static void grouping() {
+        ungrouping();
+        Pattern[] patterns = getSelectedPatterns();
+        PatternGroup patternGroup = new PatternGroup(patterns);
+        setSelectedPatternGroup(patternGroup);
+        selectedPatterns.clear();
+    }
+
+
+
 
     public static boolean selectedPatternsContains(Pattern p) {
         return selectedPatterns.contains(p);

@@ -22,6 +22,9 @@ public abstract class Pattern extends JComponent{
         this.patternGroup = null;
     }
 
+    public boolean isInGroup() {
+        return !(patternGroup == null);
+    }
 
     public void setPatternGroup(PatternGroup patternGroup) {
         this.patternGroup = patternGroup;
