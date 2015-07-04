@@ -77,6 +77,20 @@ public class FrameViewer extends JFrame{
         unbineButton.setSize(100, 20);
         unbineButton.setLocation(120, 60);
 
+        JButton openPolygonButton = new JButton(Tool.OpenPolygon.getName());
+        openPolygonButton.setActionCommand(Tool.OpenPolygon.getName());
+        openPolygonButton.addActionListener(buttonClickedEvent);
+        add(openPolygonButton);
+        openPolygonButton.setSize(100, 20);
+        openPolygonButton.setLocation(120, 80);
+
+        JButton closedPolygonButton = new JButton(Tool.ClosedPolygon.getName());
+        closedPolygonButton.setActionCommand(Tool.ClosedPolygon.getName());
+        closedPolygonButton.addActionListener(buttonClickedEvent);
+        add(closedPolygonButton);
+        closedPolygonButton.setSize(100, 20);
+        closedPolygonButton.setLocation(120, 100);
+
         canvas = new JLayeredPane();
         add(canvas);
         canvas.setSize(300, 400);

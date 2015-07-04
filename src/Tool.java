@@ -3,7 +3,7 @@
  */
 public enum Tool {
     Select("Select"), Rectangle("Rectangle"), Pencil("Pencil"), Line("Line"), Oval("Oval"), MultiSelect("MultiSelect"),
-    Group("Group"), Ungroup("Ungroup") ;
+    Group("Group"), Ungroup("Ungroup"),ClosedPolygon("ClosedPolygon"),OpenPolygon("OpenPolygon") ;
 
     public String getName() {
         return name;

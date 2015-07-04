@@ -17,6 +17,7 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
     private int startX;
     private int startY;
     private Path2D path;
+    private Path2D polygon = null;
 
     private CanvasMouseAdaptor2() {
         super();
@@ -115,6 +116,9 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
             Environ.clearSelectedpatterns();
             return;
         }
+        if (currentTool == Tool.OpenPolygon || currentTool == Tool.ClosedPolygon) {
+            return;
+        }
         int x = e.getX();
         int y = e.getY();
         int nx, ny, height, width;
@@ -161,14 +165,50 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
 
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
+        if (e.getClickCount() == 2) {
+            //Double Click
+            if (Setting.getCurrentTool() == Tool.OpenPolygon || Setting.getCurrentTool() == Tool.ClosedPolygon) {
+                Environ.getGlassPanel().clear();
+                if(Setting.getCurrentTool()==Tool.ClosedPolygon){
+                    try{
+                        polygon.closePath();
+                    }catch(Exception ecp){
+                        System.out.println(ecp.getMessage());
+                    }
+                }
+                Pattern p = new PolygonPattern(polygon);
+                ((JLayeredPane) e.getSource()).add(p, Setting.getLayer());
+                polygon = null;
+            }
+        } else if (e.getClickCount() == 1) {
+            //Single Click
+            if (Setting.getCurrentTool() == Tool.OpenPolygon || Setting.getCurrentTool() == Tool.ClosedPolygon) {
+                GlassPanel glassPanel = Environ.getGlassPanel();
+                if (null == polygon) {
+                    polygon = new Path2D.Double();
+                    startX = e.getX();
+                    startY = e.getY();
+                    polygon.moveTo(startX, startY);
+                } else {
+                    polygon.lineTo(e.getX(), e.getY());
+                    glassPanel.setShape(polygon);
+                }
+            }
+        }
+    }
 
-//    @Override
-//    public void mouseMoved(MouseEvent e) {
-//        super.mouseMoved(e);
-//        int x = e.getX();
-//        int y = e.getY();
-//        System.out.println(x + " " + y);
-//    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        if ((Setting.getCurrentTool() == Tool.OpenPolygon || Setting.getCurrentTool() == Tool.ClosedPolygon) && polygon != null) {
+            Path2D tempPath = (Path2D) polygon.clone();
+            tempPath.lineTo(e.getX(), e.getY());
+            GlassPanel glassPanel = Environ.getGlassPanel();
+            glassPanel.setShape(tempPath);
+        }
+    }
 
 
 }
