@@ -16,8 +16,6 @@ public class LinePattern extends Pattern{
         super();
         setSize(width,height);
         setLocation(x, y);
-        addMouseListener(PatternMouseAdaptor.getInstance());
-        addMouseMotionListener(PatternMouseAdaptor.getInstance());
         this.startX=startX-getX();
         this.startY=startY-getY();
         this.endX=endX-getX();

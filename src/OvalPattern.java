@@ -23,9 +23,6 @@ public class OvalPattern extends Pattern{
         super();
         setSize(width,height);
         setLocation(x, y);
-        addMouseListener(PatternMouseAdaptor.getInstance());
-        addMouseMotionListener(PatternMouseAdaptor.getInstance());
-
     }
 
     private void init(int fx1, int fy1, int fx2, int fy2, int bx, int by) {

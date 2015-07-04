@@ -10,6 +10,8 @@ public abstract class Pattern extends JComponent{
     public Pattern() {
         super();
         this.patternGroup = null;
+        addMouseListener(PatternMouseAdaptor.getInstance());
+        addMouseMotionListener(PatternMouseAdaptor.getInstance());
     }
 
     public PatternGroup getPatternGroup() {

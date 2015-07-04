@@ -10,10 +10,6 @@ public class RectangleComponent extends Pattern {
         super();
         this.setLocation(posx, posy);
         this.setSize(width, height);
-
-        addMouseListener(PatternMouseAdaptor.getInstance());
-        addMouseMotionListener(PatternMouseAdaptor.getInstance());
-
         System.out.println("Rect: "+posx + " " + posy + " " + width + " " + height);
     }
 

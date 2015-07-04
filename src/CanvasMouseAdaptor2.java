@@ -102,6 +102,8 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
         } else if (currentTool == Tool.Pencil) {
             path.lineTo(e.getX(), e.getY());
             s = path;
+        } else if (currentTool == Tool.ClosedPolygon || currentTool == Tool.OpenPolygon) {
+            return;
         }
         glassPanel.setShape(s);
 

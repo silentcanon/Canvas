@@ -33,7 +33,6 @@ public class PolygonPattern extends Pattern {
         BufferedImage newImg = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB); //Create a new buffered image the right size
         Graphics2D g2d = newImg.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
         g2d.draw(path);
         g2d.dispose();
         return newImg;
