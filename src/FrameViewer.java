@@ -211,6 +211,7 @@ public class FrameViewer extends JFrame{
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            Environ.ungrouping();
             Pattern[] patterns = Environ.getSelectedPatterns();
             Environ.clearSelectedpatterns();
             JComponent parent = (JComponent)e.getSource();

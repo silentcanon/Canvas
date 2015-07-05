@@ -57,10 +57,16 @@ public class PatternMouseAdaptor extends MouseAdapter {
             }
             if(currentPattern.isInGroup()) {
                 PatternGroup patternGroup = currentPattern.getPatternGroup();
+                if(Environ.selectedGroupsContains(patternGroup)) {
+                    return;
+                }
+                Environ.clearSelectedpatterns();
                 Environ.setSelectedPatternGroup(patternGroup);
-                glassPanel.setBorder(patternGroup.getX(),patternGroup.getY(),
-                        patternGroup.getWidth(),patternGroup.getHeight());
+
+                glassPanel.setBorder(patternGroup.getX(), patternGroup.getY(),
+                        patternGroup.getWidth(), patternGroup.getHeight());
             } else {//Pattern is not in a pattern group
+                Environ.clearSelectedpatterns();
                 Environ.setSelectedPattern(currentPattern);
                 glassPanel.setBorder(currentPattern.getX(), currentPattern.getY(),
                         currentPattern.getWidth(), currentPattern.getHeight());
@@ -93,6 +99,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
             int dx = e.getX() - clickedX;
             int dy = e.getY() - clickedY;
             Pattern[] currentPatterns = Environ.getSelectedPatterns();
+            PatternGroup[] currentGroups = Environ.getGroups();
             System.out.println("Algother "+currentPatterns.length+" patterns");
             GlassPanel glassPanel = Environ.getGlassPanel();
             glassPanel.clear();
@@ -100,6 +107,10 @@ public class PatternMouseAdaptor extends MouseAdapter {
                 p.moveDelta(dx, dy);
                 p.repaint();
                 glassPanel.addBorder(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+            }
+            for(PatternGroup pg: currentGroups) {
+                pg.moveDelta(dx, dy);
+                glassPanel.addBorder(pg.getX(),pg.getY(),pg.getWidth(),pg.getHeight());
             }
             System.out.println("Mouse Dragged in pattern");
         }

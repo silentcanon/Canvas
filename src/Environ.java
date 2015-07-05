@@ -35,6 +35,14 @@ public class Environ {
         }
     }
 
+    public static void clearPatterns() {
+        selectedPatterns.clear();
+    }
+
+    public static void clearGroups() {
+        selectedPatternGroups.clear();
+    }
+
     public static void setSelectedPattern(Pattern pattern) {
 
         selectedPatterns.clear();
@@ -73,7 +81,11 @@ public class Environ {
         ungrouping();
         Pattern[] patterns = getSelectedPatterns();
         PatternGroup patternGroup = new PatternGroup(patterns);
+
         setSelectedPatternGroup(patternGroup);
+        for(Pattern p: patterns) {
+            p.setPatternGroup(patternGroup);
+        }
         selectedPatterns.clear();
     }
 
@@ -82,6 +94,10 @@ public class Environ {
 
     public static boolean selectedPatternsContains(Pattern p) {
         return selectedPatterns.contains(p);
+    }
+
+    public static boolean selectedGroupsContains(PatternGroup pg) {
+        return selectedPatternGroups.contains(pg);
     }
 
     public static void setGlassPanel(GlassPanel p) {

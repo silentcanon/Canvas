@@ -33,6 +33,7 @@ public abstract class Pattern extends JComponent{
 
     public void moveDelta(int dx, int dy) {
         setLocation(getX()+dx,getY()+dy);
+        repaint();
     }
 
     protected abstract BufferedImage getBufImg();
