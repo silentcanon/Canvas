@@ -12,6 +12,10 @@ public class Setting {
 
     }
 
+    public static void resetLayer() {
+        layer = 0;
+    }
+
     public static int getLayer() {
         layer += 1;
         System.out.println("Current Layer: "+ layer);

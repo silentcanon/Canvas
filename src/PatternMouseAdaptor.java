@@ -126,9 +126,9 @@ public class PatternMouseAdaptor extends MouseAdapter {
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Release Send event");
         } else {
-            //Pattern currentPattern = Environ.getSelectedPattern();
-            //Environ.getGlassPanel().clear();
-            //currentPattern = null;
+            //finishing moving
+            History.addRecord();
+
 
         }
 

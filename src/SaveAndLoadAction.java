@@ -33,14 +33,15 @@ public class SaveAndLoadAction extends AbstractAction {
             int returnValue = fc.showSaveDialog(parent);
             if(returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                SaverAndLoader.saveAction(patterns, file);
+                SaverAndLoader.saveAction(file);
             }
 
-        } else if("load".equals(command)) {
+        } else if("open".equals(command)) {
             int returnValue = fc.showOpenDialog(parent);
             if(returnValue == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                SaverAndLoader.loadAction(file);
+                SaverAndLoader.openAction(file);
+                canvas.repaint();
             }
 
         }

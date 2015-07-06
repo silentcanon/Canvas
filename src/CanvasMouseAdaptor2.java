@@ -164,6 +164,8 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
             p = new PathPattern(path);
         }
         ((JLayeredPane) e.getSource()).add(p, Setting.getLayer());
+        //Create new Pattern
+        History.addRecord();
 
     }
 
@@ -183,6 +185,8 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
                 }
                 Pattern p = new PolygonPattern(polygon);
                 ((JLayeredPane) e.getSource()).add(p, Setting.getLayer());
+                //Create New Polygon
+                History.addRecord();
                 polygon = null;
             }
         } else if (e.getClickCount() == 1) {

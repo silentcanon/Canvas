@@ -1,5 +1,3 @@
-import oracle.jrockit.jfr.JFR;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -100,11 +98,12 @@ public class FrameViewer extends JFrame{
         saveButton.setSize(100, 20);
         saveButton.setLocation(220, 40);
 
-        JButton loadButton = new JButton("Load");
-        loadButton.setActionCommand("load");
-        add(loadButton);
-        loadButton.setSize(100, 20);
-        loadButton.setLocation(220, 60);
+        JButton openButton = new JButton("open");
+
+        openButton.setActionCommand("open");
+        add(openButton);
+        openButton.setSize(100, 20);
+        openButton.setLocation(220, 60);
 
 
 
@@ -113,10 +112,18 @@ public class FrameViewer extends JFrame{
         canvas.setSize(500, 400);
         canvas.setLocation(0, 100);
 
+
         SaveAndLoadAction sl = new SaveAndLoadAction((JFrame)this, canvas);
         SaverAndLoader.init(canvas);
         saveButton.addActionListener(sl);
-        loadButton.addActionListener(sl);
+        openButton.addActionListener(sl);
+        History.addRecord();
+
+        GlassPanel glassCanvas = new GlassPanel();
+        Environ.setGlassPanel(glassCanvas);
+        add(glassCanvas, 0);
+        glassCanvas.setSize(500, 400);
+        glassCanvas.setLocation(0, 100);
 
         canvas.addMouseListener(CanvasMouseAdaptor2.getInstance());
         canvas.addMouseMotionListener(CanvasMouseAdaptor2.getInstance());
@@ -151,8 +158,28 @@ public class FrameViewer extends JFrame{
                 }
             }
         });
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Z"), "control Z");
+        canvas.getActionMap().put("control Z", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("control + Z");
+                History.undo();
+                canvas.repaint();
+                glassCanvas.clear();
+            }
+        });
 
-        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT,InputEvent.SHIFT_DOWN_MASK),"shift down");
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control Y"), "control Y");
+        canvas.getActionMap().put("control Y", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("control + Y");
+                History.redo();
+                glassCanvas.clear();
+            }
+        });
+
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT, InputEvent.SHIFT_DOWN_MASK), "shift down");
         canvas.getActionMap().put("shift down", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -160,7 +187,7 @@ public class FrameViewer extends JFrame{
                 System.out.println("shift down");
             }
         });
-        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT,0,true),"shift release");
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT, 0, true), "shift release");
         canvas.getActionMap().put("shift release", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -171,17 +198,21 @@ public class FrameViewer extends JFrame{
 
 
 
-        GlassPanel glassCanvas = new GlassPanel();
-        Environ.setGlassPanel(glassCanvas);
-        add(glassCanvas, 0);
-        glassCanvas.setSize(500,400);
-        glassCanvas.setLocation(0,100);
+
     }
 
 
 
     public static void main(String[] args) {
-
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        System.setProperty("com.apple.mrj.application.apple.menu.about.name", "WikiTeX");
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            //UIManager.setLookAndFeel("com.apple.laf.AquaLookAndFeel");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         FrameViewer mainFrame = new FrameViewer();
 
@@ -244,6 +275,8 @@ public class FrameViewer extends JFrame{
                 parent.remove(p);
             parent.repaint();
             System.out.println("Pattern has been removed");
+            //Removing patterns
+            History.addRecord();
         }
     }
 }
