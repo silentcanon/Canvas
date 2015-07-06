@@ -1,3 +1,5 @@
+import oracle.jrockit.jfr.JFR;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -5,11 +7,12 @@ import java.util.Set;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.xml.soap.SAAJMetaFactory;
 
 public class FrameViewer extends JFrame{
     private JLabel label;
     private JLayeredPane canvas;
-    private final int WIDTH = 300;
+    private final int WIDTH = 500;
     private final int HEIGHT = 400;
 
 
@@ -91,10 +94,29 @@ public class FrameViewer extends JFrame{
         closedPolygonButton.setSize(100, 20);
         closedPolygonButton.setLocation(120, 100);
 
+        JButton saveButton = new JButton("Save");
+        saveButton.setActionCommand("save");
+        add(saveButton);
+        saveButton.setSize(100, 20);
+        saveButton.setLocation(220, 40);
+
+        JButton loadButton = new JButton("Load");
+        loadButton.setActionCommand("load");
+        add(loadButton);
+        loadButton.setSize(100, 20);
+        loadButton.setLocation(220, 60);
+
+
+
         canvas = new JLayeredPane();
         add(canvas);
-        canvas.setSize(300, 400);
+        canvas.setSize(500, 400);
         canvas.setLocation(0, 100);
+
+        SaveAndLoadAction sl = new SaveAndLoadAction((JFrame)this, canvas);
+        SaverAndLoader.init(canvas);
+        saveButton.addActionListener(sl);
+        loadButton.addActionListener(sl);
 
         canvas.addMouseListener(CanvasMouseAdaptor2.getInstance());
         canvas.addMouseMotionListener(CanvasMouseAdaptor2.getInstance());
@@ -147,10 +169,12 @@ public class FrameViewer extends JFrame{
             }
         });
 
+
+
         GlassPanel glassCanvas = new GlassPanel();
         Environ.setGlassPanel(glassCanvas);
         add(glassCanvas, 0);
-        glassCanvas.setSize(300,400);
+        glassCanvas.setSize(500,400);
         glassCanvas.setLocation(0,100);
     }
 

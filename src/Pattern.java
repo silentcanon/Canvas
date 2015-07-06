@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * Created by Canon on 2015-06-25.
  */
-public abstract class Pattern extends JComponent{
+public abstract class Pattern extends JComponent implements Serializable{
     protected PatternGroup patternGroup;
 
     public Pattern() {
