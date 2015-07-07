@@ -13,6 +13,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
 
     private int clickedX = 0;
     private int clickedY = 0;
+    private boolean drag;
     private PatternMouseAdaptor(){
         super();
     }
@@ -41,6 +42,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        drag = false;
         super.mousePressed(e);
         clickedX = e.getX();
         clickedY = e.getY();
@@ -90,12 +92,14 @@ public class PatternMouseAdaptor extends MouseAdapter {
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        drag = true;
         super.mouseDragged(e);
         if(Setting.getCurrentTool() != Tool.Select && Setting.getCurrentTool() != Tool.MultiSelect) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
             System.out.println("Drag Send event");
         } else {
+
             int dx = e.getX() - clickedX;
             int dy = e.getY() - clickedY;
             Pattern[] currentPatterns = Environ.getSelectedPatterns();
@@ -127,7 +131,9 @@ public class PatternMouseAdaptor extends MouseAdapter {
             System.out.println("Release Send event");
         } else {
             //finishing moving
-            History.addRecord();
+            if(drag) {
+                History.addRecord();
+            }
 
 
         }

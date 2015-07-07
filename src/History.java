@@ -69,6 +69,7 @@ public class History {
     }
 
     private static void gotoState(byte[] stateArray) {
+        System.out.println("Switch state");
         SaverAndLoader.restoreStateFromMem(stateArray);
     }
 

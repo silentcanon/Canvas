@@ -245,7 +245,8 @@ public class FrameViewer extends JFrame{
             PatternGroup pg = Environ.getGroups()[0];
             GlassPanel gp = Environ.getGlassPanel();
             gp.clear();
-            gp.setBorder(pg.getX(),pg.getY(),pg.getWidth(),pg.getHeight());
+            gp.setBorder(pg.getX(), pg.getY(), pg.getWidth(), pg.getHeight());
+            History.addRecord();
         }
 
         public void ungroupAction() {
@@ -256,6 +257,7 @@ public class FrameViewer extends JFrame{
             for(Pattern p: patterns) {
                 glassPanel.addBorder(p.getX(),p.getY(),p.getWidth(),p.getHeight());
             }
+            History.addRecord();
         }
     }
 

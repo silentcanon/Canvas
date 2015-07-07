@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
  * Created by Canon on 2015-06-30.
  */
-public class PatternGroup {
+public class PatternGroup implements Serializable{
     private HashSet<Pattern> group = new HashSet<Pattern>();
     int lx = 0;
     int ly = 0;

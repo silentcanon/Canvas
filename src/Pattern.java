@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Canon on 2015-06-25.
  */
 public abstract class Pattern extends JComponent implements Serializable{
-    transient protected PatternGroup patternGroup;
+    protected PatternGroup patternGroup;
 
     public Pattern() {
         super();
