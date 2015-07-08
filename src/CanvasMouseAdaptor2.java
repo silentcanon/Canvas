@@ -138,9 +138,9 @@ public class CanvasMouseAdaptor2 extends MouseAdapter {
             if (Setting.getShiftStatus()) {
                 //draw square
                 int edge = width > height ? width : height;
-                p = new RectangleComponent(nx, ny, edge, edge);
+                p = new RectanglePattern(nx, ny, edge, edge);
             } else {
-                p = new RectangleComponent(nx, ny, width, height);
+                p = new RectanglePattern(nx, ny, width, height);
             }
         } else if (currentTool == Tool.Oval) {
             if (Setting.getShiftStatus()) {

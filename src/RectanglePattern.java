@@ -3,10 +3,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 
-public class RectangleComponent extends Pattern {
+public class RectanglePattern extends Pattern {
 
 
-    public RectangleComponent(int posx, int posy, int width, int height) {
+    public RectanglePattern(int posx, int posy, int width, int height) {
         super();
         this.setLocation(posx, posy);
         this.setSize(width, height);
@@ -22,12 +22,6 @@ public class RectangleComponent extends Pattern {
     }
 
 
-//    private int clickAlphaValue(BufferedImage bufImg, int posX, int posY) {
-//        int alpha;
-//        alpha = (bufImg.getRGB(posX, posY) >>24) & 0x000000FF; //Gets the bit that contains alpha information
-//        return alpha;
-//    }
-
     @Override
     protected BufferedImage getBufImg()
     {
@@ -40,20 +34,14 @@ public class RectangleComponent extends Pattern {
         return newImg;
     }
 
-//    public boolean isHit(int posx, int posy) {
-//        BufferedImage im = getBufImg();
-//        for(int x = posx - 3; x <= posx+3;x++) {
-//            if(x <0 || x > getWidth())
-//                continue;
-//            for(int y = posy - 3;y <= posy+3; y++) {
-//                if(y < 0 || y > getHeight())
-//                    continue;
-//                if(clickAlphaValue(im, x, y) > 0)// is not transparent
-//                    return true;
-//            }
-//        }
-//        return false;
-//    }
+    @Override
+    public Pattern clone() {
+        RectanglePattern newP = new RectanglePattern(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        newP.move(10,10);
+        return newP;
+    }
+
+
 
 
 

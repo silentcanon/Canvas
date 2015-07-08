@@ -71,8 +71,24 @@ public class PatternGroup implements Serializable{
         ly += dy;
         ry += dy;
         for(Pattern p: group) {
-            p.moveDelta(dx,dy);
+            p.moveDelta(dx, dy);
         }
+    }
+
+    @Override
+    public PatternGroup clone() {
+        Pattern[] patterns = new Pattern[this.group.size()];
+        int id = 0;
+        for(Pattern oldP: group) {
+            Pattern newP = oldP.clone();
+            patterns[id++] = newP;
+        }
+        PatternGroup newGroup = new PatternGroup(patterns);
+        for(Pattern p: patterns) {
+            p.setPatternGroup(newGroup);
+        }
+        return newGroup;
+
     }
 
     public int size() {

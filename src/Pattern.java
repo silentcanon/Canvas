@@ -15,6 +15,7 @@ public abstract class Pattern extends JComponent implements Serializable{
         addMouseMotionListener(PatternMouseAdaptor.getInstance());
     }
 
+
     public PatternGroup getPatternGroup() {
         return this.patternGroup;
     }
@@ -67,5 +68,11 @@ public abstract class Pattern extends JComponent implements Serializable{
         alpha = (bufImg.getRGB(posX, posY) >>24) & 0x000000FF; //Gets the bit that contains alpha information
         return alpha;
     }
+
+    @Override
+    public abstract Pattern clone();
+
+
+
 
 }

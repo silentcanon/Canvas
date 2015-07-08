@@ -38,4 +38,13 @@ public class LinePattern extends Pattern{
         g2d.dispose();
         return newImg;
     }
+
+
+    @Override
+    public Pattern clone() {
+        LinePattern newP = new LinePattern(this.getX(),this.getY(), this.getWidth(), this.getHeight(), this.startX+getX(), this.startY+getY(),
+                this.endX+getX(), this.endY+getY());
+        newP.moveDelta(10,10);
+        return newP;
+    }
 }

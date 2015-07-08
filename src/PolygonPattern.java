@@ -22,6 +22,14 @@ public class PolygonPattern extends Pattern {
 //        System.out.println(this.path.getBounds().getY());
     }
 
+    private PolygonPattern() {
+        super();
+    }
+
+    private void setPath(Path2D path) {
+        this.path = path;
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -36,5 +44,16 @@ public class PolygonPattern extends Pattern {
         g2d.draw(path);
         g2d.dispose();
         return newImg;
+    }
+
+
+    @Override
+    public Pattern clone() {
+        PolygonPattern newP = new PolygonPattern();
+        newP.setSize(this.getWidth(), this.getHeight());
+        newP.setLocation(this.getX(), this.getY());
+        newP.setPath(this.path);
+        newP.moveDelta(10,10);
+        return newP;
     }
 }

@@ -31,7 +31,7 @@ public class CanvasMouseAdaptor extends MouseAdapter {
             startX = e.getX();
             startY = e.getY();
             System.out.println("Mouse Pos: " + startX + " " + startY);
-            RectangleComponent rectangle = new RectangleComponent(startX, startY, 1, 1);
+            RectanglePattern rectangle = new RectanglePattern(startX, startY, 1, 1);
             this.currentRect = rectangle;
             JLayeredPane source = (JLayeredPane) e.getSource();
 

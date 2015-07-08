@@ -119,6 +119,10 @@ public class FrameViewer extends JFrame{
         openButton.addActionListener(sl);
         History.addRecord();
 
+
+        Clipboard.init(canvas);
+
+
         GlassPanel glassCanvas = new GlassPanel();
         Environ.setGlassPanel(glassCanvas);
         add(glassCanvas, 0);
@@ -176,6 +180,27 @@ public class FrameViewer extends JFrame{
                 System.out.println("control + Y");
                 History.redo();
                 glassCanvas.clear();
+            }
+        });
+
+
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control C"), "control C");
+        canvas.getActionMap().put("control C", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Clipboard.copy();
+                System.out.println("control + C");
+            }
+        });
+
+
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control V"), "control V");
+        canvas.getActionMap().put("control V", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Clipboard.paste();
+                History.addRecord();
+                System.out.println("control + V");
             }
         });
 

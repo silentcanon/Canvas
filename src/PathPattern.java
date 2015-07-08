@@ -13,14 +13,16 @@ public class PathPattern extends Pattern {
     public PathPattern(Path2D path){
         super();
         setLocation((int) path.getBounds().getX(), (int) path.getBounds().getY());
-//        System.out.println(getX());
-//        System.out.println(getY());
         setSize(path.getBounds().width+1,path.getBounds().height+1);
-//        System.out.println(getWidth());
-//        System.out.println(getHeight());
         this.path=(Path2D)path.createTransformedShape(new AffineTransform(1, 0, 0, 1, 0 - getX(), 0 - getY()));
-//        System.out.println(this.path.getBounds().getX());
-//        System.out.println(this.path.getBounds().getY());
+    }
+
+    private PathPattern() {
+        super();
+    }
+
+    private void setPath(Path2D path) {
+        this.path = path;
     }
 
     @Override
@@ -39,4 +41,16 @@ public class PathPattern extends Pattern {
         g2d.dispose();
         return newImg;
     }
+
+    @Override
+    public Pattern clone() {
+        PathPattern newP = new PathPattern();
+        newP.setLocation(this.getX(), this.getY());
+        newP.setSize(this.getWidth(), this.getHeight());
+        newP.setPath(this.path);
+        newP.moveDelta(10,10);
+        return newP;
+    }
+
+
 }
