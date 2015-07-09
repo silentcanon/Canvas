@@ -37,7 +37,7 @@ public class RectanglePattern extends Pattern {
     @Override
     public Pattern clone() {
         RectanglePattern newP = new RectanglePattern(this.getX(), this.getY(), this.getWidth(), this.getHeight());
-        newP.move(10,10);
+        newP.moveDelta(10,10);
         return newP;
     }
 

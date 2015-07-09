@@ -1,11 +1,6 @@
-import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.util.Set;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.xml.soap.SAAJMetaFactory;
 
 public class FrameViewer extends JFrame{
     private JLabel label;
@@ -129,10 +124,12 @@ public class FrameViewer extends JFrame{
         glassCanvas.setSize(600, 400);
         glassCanvas.setLocation(160, 0);
 
-        canvas.addMouseListener(CanvasMouseAdaptor2.getInstance());
-        canvas.addMouseMotionListener(CanvasMouseAdaptor2.getInstance());
+        canvas.addMouseListener(CanvasMouseAdaptor.getInstance());
+        canvas.addMouseMotionListener(CanvasMouseAdaptor.getInstance());
         canvas.setFocusable(true);
         canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DELETE"), "DELETE");
+        canvas.getActionMap().put("DELETE", new DeleteAction());
+        canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE,0,false), "DELETE");
         canvas.getActionMap().put("DELETE", new DeleteAction());
         canvas.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control A"), "control A");
         canvas.getActionMap().put("control A", new AbstractAction() {
@@ -229,8 +226,6 @@ public class FrameViewer extends JFrame{
 
 
     public static void main(String[] args) {
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-        System.setProperty("com.apple.mrj.application.apple.menu.about.name", "WikiTeX");
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
