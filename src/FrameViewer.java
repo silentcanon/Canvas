@@ -10,7 +10,7 @@ import javax.xml.soap.SAAJMetaFactory;
 public class FrameViewer extends JFrame{
     private JLabel label;
     private JLayeredPane canvas;
-    private final int WIDTH = 500;
+    private final int WIDTH = 800;
     private final int HEIGHT = 400;
 
 
@@ -22,7 +22,7 @@ public class FrameViewer extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
-        label = new JLabel("Nothing");
+        label = new JLabel("mode");
         add(label);
         label.setSize(100, 20);
         label.setLocation(20,10);
@@ -32,14 +32,14 @@ public class FrameViewer extends JFrame{
         selectButton.setActionCommand(Tool.Select.getName());
         selectButton.addActionListener(buttonClickedEvent);
         add(selectButton);
-        selectButton.setSize(100, 20);
-        selectButton.setLocation(20, 40);
+        selectButton.setSize(140, 20);
+        selectButton.setLocation(20, 30);
 
         JButton rectangleButton = new JButton(Tool.Rectangle.getName());
         rectangleButton.setActionCommand(Tool.Rectangle.getName());
         rectangleButton.addActionListener(buttonClickedEvent);
         add(rectangleButton);
-        rectangleButton.setSize(100, 20);
+        rectangleButton.setSize(140, 20);
         rectangleButton.setLocation(20, 60);
 
 
@@ -47,70 +47,70 @@ public class FrameViewer extends JFrame{
         ovalButton.setActionCommand(Tool.Oval.getName());
         ovalButton.addActionListener(buttonClickedEvent);
         add(ovalButton);
-        ovalButton.setSize(100, 20);
+        ovalButton.setSize(140, 20);
         ovalButton.setLocation(20, 80);
 
         JButton lineButton = new JButton(Tool.Line.getName());
         lineButton.setActionCommand(Tool.Line.getName());
         lineButton.addActionListener(buttonClickedEvent);
         add(lineButton);
-        lineButton.setSize(100, 20);
+        lineButton.setSize(140, 20);
         lineButton.setLocation(20, 100);
 
         JButton pencilButton = new JButton(Tool.Pencil.getName());
         pencilButton.setActionCommand(Tool.Pencil.getName());
         pencilButton.addActionListener(buttonClickedEvent);
         add(pencilButton);
-        pencilButton.setSize(100, 20);
+        pencilButton.setSize(140, 20);
         pencilButton.setLocation(20, 120);
 
         JButton combineButton = new JButton(Tool.Group.getName());
         combineButton.setActionCommand(Tool.Group.getName());
         combineButton.addActionListener(buttonClickedEvent);
         add(combineButton);
-        combineButton.setSize(100, 20);
-        combineButton.setLocation(120, 40);
+        combineButton.setSize(140, 20);
+        combineButton.setLocation(20, 190);
 
         JButton unbineButton = new JButton(Tool.Ungroup.getName());
         unbineButton.setActionCommand(Tool.Ungroup.getName());
         unbineButton.addActionListener(buttonClickedEvent);
         add(unbineButton);
-        unbineButton.setSize(100, 20);
-        unbineButton.setLocation(120, 60);
+        unbineButton.setSize(140, 20);
+        unbineButton.setLocation(20, 210);
 
         JButton openPolygonButton = new JButton(Tool.OpenPolygon.getName());
         openPolygonButton.setActionCommand(Tool.OpenPolygon.getName());
         openPolygonButton.addActionListener(buttonClickedEvent);
         add(openPolygonButton);
-        openPolygonButton.setSize(100, 20);
-        openPolygonButton.setLocation(120, 80);
+        openPolygonButton.setSize(140, 20);
+        openPolygonButton.setLocation(20, 140);
 
         JButton closedPolygonButton = new JButton(Tool.ClosedPolygon.getName());
         closedPolygonButton.setActionCommand(Tool.ClosedPolygon.getName());
         closedPolygonButton.addActionListener(buttonClickedEvent);
         add(closedPolygonButton);
-        closedPolygonButton.setSize(100, 20);
-        closedPolygonButton.setLocation(120, 100);
+        closedPolygonButton.setSize(140, 20);
+        closedPolygonButton.setLocation(20, 160);
 
         JButton saveButton = new JButton("Save");
         saveButton.setActionCommand("save");
         add(saveButton);
-        saveButton.setSize(100, 20);
-        saveButton.setLocation(220, 40);
+        saveButton.setSize(140, 20);
+        saveButton.setLocation(20, 240);
 
         JButton openButton = new JButton("open");
 
         openButton.setActionCommand("open");
         add(openButton);
-        openButton.setSize(100, 20);
-        openButton.setLocation(220, 60);
+        openButton.setSize(140, 20);
+        openButton.setLocation(20, 260);
 
 
 
         canvas = new JLayeredPane();
         add(canvas);
-        canvas.setSize(500, 400);
-        canvas.setLocation(0, 100);
+        canvas.setSize(600, 400);
+        canvas.setLocation(160, 0);
 
 
         SaveAndLoadAction sl = new SaveAndLoadAction((JFrame)this, canvas);
@@ -126,8 +126,8 @@ public class FrameViewer extends JFrame{
         GlassPanel glassCanvas = new GlassPanel();
         Environ.setGlassPanel(glassCanvas);
         add(glassCanvas, 0);
-        glassCanvas.setSize(500, 400);
-        glassCanvas.setLocation(0, 100);
+        glassCanvas.setSize(600, 400);
+        glassCanvas.setLocation(160, 0);
 
         canvas.addMouseListener(CanvasMouseAdaptor2.getInstance());
         canvas.addMouseMotionListener(CanvasMouseAdaptor2.getInstance());
