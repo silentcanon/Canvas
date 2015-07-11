@@ -123,8 +123,8 @@ public class CanvasMouseAdaptor extends MouseAdapter {
         int x = e.getX();
         int y = e.getY();
         int nx, ny, height, width;
-        width = Math.abs(x - startX);
-        height = Math.abs(y - startY);
+        width = Math.abs(x - startX)+1;
+        height = Math.abs(y - startY)+1;
         nx = startX;
         ny = startY;
         if (y < startY)
