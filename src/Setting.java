@@ -18,7 +18,6 @@ public class Setting {
 
     public static int getLayer() {
         layer += 1;
-        System.out.println("Current Layer: "+ layer);
         return layer;
 
     }

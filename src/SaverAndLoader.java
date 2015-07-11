@@ -70,7 +70,6 @@ public class SaverAndLoader {
 
     private static void restoreFromList(List<Pattern> patterns) {
         canvas.removeAll();
-        System.out.println("remove all");
         for(Pattern p: patterns) {
             p.addMouseListener(PatternMouseAdaptor.getInstance());
             p.addMouseMotionListener(PatternMouseAdaptor.getInstance());

@@ -33,7 +33,6 @@ public class PatternMouseAdaptor extends MouseAdapter {
         } else {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
-            System.out.println("Press Send event");
         }
     }
 
@@ -48,9 +47,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
         if((Setting.getCurrentTool() != Tool.Select) && (Setting.getCurrentTool() != Tool.MultiSelect)) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
-            System.out.println("Press Send event");
         } else if(Setting.getCurrentTool() == Tool.Select){
-            System.out.println("Current Tool:" + Tool.Select.getName());
             if(Environ.selectedPatternsContains(currentPattern)) {
                 return;
             }
@@ -70,9 +67,7 @@ public class PatternMouseAdaptor extends MouseAdapter {
                 glassPanel.setBorder(currentPattern.getX(), currentPattern.getY(),
                         currentPattern.getWidth(), currentPattern.getHeight());
             }
-            System.out.println("Mouse Pressed in pattern");
         } else if(Setting.getCurrentTool() == Tool.MultiSelect) {
-            System.out.println("Current Tool:" + Tool.MultiSelect.getName());
             if(currentPattern.isInGroup()) {
                 PatternGroup patternGroup = currentPattern.getPatternGroup();
                 Environ.addSelectedPatternGroup(patternGroup);
@@ -94,14 +89,12 @@ public class PatternMouseAdaptor extends MouseAdapter {
         if(Setting.getCurrentTool() != Tool.Select && Setting.getCurrentTool() != Tool.MultiSelect) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
-            System.out.println("Drag Send event");
         } else {
 
             int dx = e.getX() - clickedX;
             int dy = e.getY() - clickedY;
             Pattern[] currentPatterns = Environ.getSelectedPatterns();
             PatternGroup[] currentGroups = Environ.getGroups();
-            System.out.println("Algother "+currentPatterns.length+" patterns");
             GlassPanel glassPanel = Environ.getGlassPanel();
             glassPanel.clear();
             for(Pattern p: currentPatterns) {
@@ -113,7 +106,6 @@ public class PatternMouseAdaptor extends MouseAdapter {
                 pg.moveDelta(dx, dy);
                 glassPanel.addBorder(pg.getX(),pg.getY(),pg.getWidth(),pg.getHeight());
             }
-            System.out.println("Mouse Dragged in pattern");
         }
 
     }
@@ -125,14 +117,11 @@ public class PatternMouseAdaptor extends MouseAdapter {
         if(Setting.getCurrentTool() != Tool.Select && Setting.getCurrentTool() != Tool.MultiSelect) {
             MouseEvent e1 = SwingUtilities.convertMouseEvent((Component) e.getSource(), e, ((Component) e.getSource()).getParent());
             ((Component) e.getSource()).getParent().dispatchEvent(e1);
-            System.out.println("Release Send event");
         } else {
             //finishing moving
             if(drag) {
                 History.addRecord();
             }
-
-
         }
 
     }

@@ -30,7 +30,6 @@ public class CanvasMouseAdaptor extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        System.out.println("Mouse Pos: " + startX + " " + startY);
         startX = e.getX();
         startY = e.getY();
         if (Setting.getCurrentTool() == Tool.Select) {

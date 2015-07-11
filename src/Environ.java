@@ -19,7 +19,6 @@ public class Environ {
 
     public static void addSelectedPattern(Pattern p) {
         selectedPatterns.add(p);
-        System.out.println("Number of selected patterns: "+selectedPatterns.size());
     }
 
     private static void setSelectedPatterns(Pattern[] patterns) {
