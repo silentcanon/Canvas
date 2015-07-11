@@ -27,16 +27,13 @@ public class PatternMouseAdaptor extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
         if(Setting.getCurrentTool() == Tool.Select) {
-//            Pattern currentPattern = ((Pattern)e.getSource());
-//            Environ.getGlassPanel().drawBorder(currentPattern.getX(),currentPattern.getY(),
-//                    currentPattern.getWidth(),currentPattern.getHeight());
-            //Component source = (Component) e.getSource();
-            //Container parent = source.getParent();
-            //parent.remove(source);
-            //parent.repaint();
+            ;
         } else if(Setting.getCurrentTool() == Tool.MultiSelect) {
-//            Pattern currentPattern = ((Pattern)e.getSource());
-//            Environ
+            ;
+        } else {
+            MouseEvent e1 = SwingUtilities.convertMouseEvent((Component)e.getSource(), e, ((Component) e.getSource()).getParent());
+            ((Component) e.getSource()).getParent().dispatchEvent(e1);
+            System.out.println("Press Send event");
         }
     }
 

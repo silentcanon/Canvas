@@ -6,7 +6,7 @@ public class FrameViewer extends JFrame{
     private JLabel label;
     private JLayeredPane canvas;
     private final int WIDTH = 800;
-    private final int HEIGHT = 400;
+    private final int HEIGHT = 600;
 
 
     public FrameViewer() {
@@ -104,7 +104,7 @@ public class FrameViewer extends JFrame{
 
         canvas = new JLayeredPane();
         add(canvas);
-        canvas.setSize(600, 400);
+        canvas.setSize(800, 600);
         canvas.setLocation(160, 0);
 
 
@@ -121,7 +121,7 @@ public class FrameViewer extends JFrame{
         GlassPanel glassCanvas = new GlassPanel();
         Environ.setGlassPanel(glassCanvas);
         add(glassCanvas, 0);
-        glassCanvas.setSize(600, 400);
+        glassCanvas.setSize(800, 600);
         glassCanvas.setLocation(160, 0);
 
         canvas.addMouseListener(CanvasMouseAdaptor.getInstance());
